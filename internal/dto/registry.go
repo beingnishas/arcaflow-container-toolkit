@@ -77,7 +77,8 @@ func (registries Registries) Parse(logger log.Logger) (Registries, error) {
 		registries[i].Password = password
 		if quay_custom_namespace != "" && registries[i].Url == "quay.io" {
 			registries[i].Namespace = quay_custom_namespace
-		} else {
+		} else if namespace == "" {
+			logger.Infof("No namespace detected, defaulting to infer namespace")
 			inferred_namespace, err := InferNamespace(namespace, username)
 			if err != nil {
 				return nil, err

@@ -2,6 +2,7 @@ package act
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	log2 "log"
 	"os"
@@ -43,6 +44,18 @@ func ACT(build_img bool, push_img bool, cec ce_service.ContainerEngineService, c
 	build_options := docker.BuildOptions{
 		QuayImgExp:            conf.Quay_Img_Exp,
 		BuildTimeLimitSeconds: conf.Build_Timeout,
+	}
+	if push_img {
+		for _, registry := range conf.Registries {
+			if registry.Username == "" {
+				err := errors.New("no registry username detected with argument 'push' requested")
+				return false, err
+			}
+			if registry.Password == "" {
+				err := errors.New("no registry password detected with argument 'push' requested")
+				return false, err
+			}
+		}
 	}
 	if err := images.BuildImage(build_img, all_checks, cec, abspath, conf.Image_Name, conf.Image_Tag, &build_options,
 		logger); err != nil {
