@@ -20,13 +20,6 @@ on:
       github_namespace:
         required: false
         type: string    
-    secrets:
-      QUAY_NAMESPACE:
-        required: false
-      QUAY_USERNAME:
-        required: false
-      QUAY_PASSWORD:
-        required: false
 
 jobs:
   act-build:
