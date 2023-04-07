@@ -32,7 +32,7 @@ func PythonCodeStyle(abspath string, name string, version string, checkPythonCod
 		if len(stdout.String()) > 0 {
 			logger.Infof("python code style and quality check found these issues for %s version %s", name, version)
 			logger.Infof("(%w)", stdout.String())
-			return false, nil
+			return true, nil
 		} else {
 			return false, fmt.Errorf("error in executing python code style check for %s (%w)", name, err)
 		}
