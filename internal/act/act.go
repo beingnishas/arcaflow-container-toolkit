@@ -40,6 +40,7 @@ func ACT(build_img bool, push_img bool, cec ce_service.ContainerEngineService, c
 	if !all_checks {
 		return false, nil
 	}
+	all_checks := true
 	build_options := docker.BuildOptions{
 		QuayImgExp:            conf.Quay_Img_Exp,
 		BuildTimeLimitSeconds: conf.Build_Timeout,
