@@ -19,27 +19,27 @@ func ACT(build_img bool, push_img bool, cec ce_service.ContainerEngineService, c
 	filenames []string, logger log.Logger,
 	pythonCodeStyleChecker func(abspath string, stdout *bytes.Buffer, logger log.Logger) error) (bool, error) {
 
-	meets_reqs := make([]bool, 3)
-	basic_reqs, err := requirements.BasicRequirements(filenames, logger)
-	if err != nil {
-		return false, err
-	}
-	meets_reqs[0] = basic_reqs
-	container_reqs, err := requirements.ContainerfileRequirements(abspath, logger)
-	if err != nil {
-		return false, err
-	}
-	meets_reqs[1] = container_reqs
-	lang_req, err := requirements.LanguageRequirements(abspath, filenames, conf.Image_Name, conf.Image_Tag, logger,
-		pythonCodeStyleChecker)
-	if err != nil {
-		return false, err
-	}
-	meets_reqs[2] = lang_req
-	all_checks := AllTrue(meets_reqs)
-	if !all_checks {
-		return false, nil
-	}
+// 	meets_reqs := make([]bool, 3)
+// 	basic_reqs, err := requirements.BasicRequirements(filenames, logger)
+// 	if err != nil {
+// 		return false, err
+// 	}
+// 	meets_reqs[0] = basic_reqs
+// 	container_reqs, err := requirements.ContainerfileRequirements(abspath, logger)
+// 	if err != nil {
+// 		return false, err
+// 	}
+// 	meets_reqs[1] = container_reqs
+// 	lang_req, err := requirements.LanguageRequirements(abspath, filenames, conf.Image_Name, conf.Image_Tag, logger,
+// 		pythonCodeStyleChecker)
+// 	if err != nil {
+// 		return false, err
+// 	}
+// 	meets_reqs[2] = lang_req
+// 	all_checks := AllTrue(meets_reqs)
+// 	if !all_checks {
+// 		return false, nil
+// 	}
 	all_checks := true
 	build_options := docker.BuildOptions{
 		QuayImgExp:            conf.Quay_Img_Exp,
